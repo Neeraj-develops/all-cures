@@ -1215,4 +1215,30 @@ public static List ListCampaigns() {
 		}
 		return mcc;
 	}
+
+	public static int clicksIncrement(int adId) {
+		Session session = HibernateUtil.buildSessionFactory();
+
+		// creating session object
+		//Session session = factory;
+		// creating transaction object
+		session.beginTransaction();
+		 
+			Query query = session.createNativeQuery("UPDATE adsstats\n"
+					+ "SET clicks = clicks+ 1\n"
+					+ "where AdID =" + adId);
+			int ret = 0;
+			try {
+			ret = query.executeUpdate();
+			session.getTransaction().commit();
+			System.out.println("updating clicks in adstats =  " + adId);
+			 
+		
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
 }
