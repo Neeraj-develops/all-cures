@@ -202,6 +202,10 @@ public class SponsoredAdsController {
 		return Res;
 		
 	}
-	
+
+	@RequestMapping(path="/ads/clicks/{adId}", produces = "application/json", method = RequestMethod.PUT )
+	public int clickIncre(@PathVariable int  adId ) {
+		return SponsoredAdsDaoImpl.clicksIncrement(adId);
+	}
 	
 }
