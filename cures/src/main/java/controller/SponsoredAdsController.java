@@ -207,5 +207,11 @@ public class SponsoredAdsController {
 	public int clickIncre(@PathVariable int  adId ) {
 		return SponsoredAdsDaoImpl.clicksIncrement(adId);
 	}
+
+	@RequestMapping(value="/parent_disease_id/{article_id}",produces = "application/json", method = RequestMethod.GET )
+	public int getParentDiseaseCond(@PathVariable int article_id) {
+		
+		return SponsoredAdsDaoImpl.getParentDiseaseId(article_id);
+	}
 	
 }
