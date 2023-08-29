@@ -1241,4 +1241,29 @@ public static List ListCampaigns() {
 		
 		return ret;
 	}
+
+	public static int getParentDiseaseId(int article_id) {
+		Session session = HibernateUtil.buildSessionFactory();
+		Query query = session.createNativeQuery(
+				"SELECT article_id, dc_id, parent_dc_id FROM article a join disease_condition d\n"
+				+ "where a.disease_condition_id = d.dc_id && article_id="+article_id+"\n"
+				+ ";");
+		List<Object[]> results = (List<Object[]>) query.getResultList();
+		System.out.println(results);
+		System.out.println(results.get(0));
+		Integer parent_disease_id=null;
+		Integer dc_id=null;
+		for (Object[] res: results) {
+			dc_id=(Integer) res[1];
+			parent_disease_id = (Integer) res[2];
+		}
+		System.out.println(dc_id);
+		System.out.println(parent_disease_id);
+		
+		if(parent_disease_id== null) {
+			return dc_id;
+		}else {
+			return parent_disease_id;
+		}
+	}
 }
